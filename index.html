@@ -100,7 +100,7 @@ body::after {
 
 /* ── Main container ── */
 .container {
-  max-width: 750px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative; z-index: 1;
 }
@@ -778,6 +778,21 @@ tbody td select.item-sel option { background: #182541; }
 /* ══════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════ */
+/* ── Two-column auction layout ── */
+.auction-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+.auction-two-col .scenario-block {
+  margin-bottom: 0;
+}
+
+@media (max-width: 860px) {
+  .auction-two-col { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 680px) {
   body { padding: 1rem 0.75rem 3rem; }
   .top-controls input, .top-controls select { min-width: 100%; }
@@ -1346,6 +1361,7 @@ function render(){
   const sections=scen?[scen]:["5 PAGES ONLY","MORE THAN 5 PAGES"];
   let html="";
 
+  const blocks=[];
   for(const sec of sections){
     const secKey=sec.replace(/\s+/g,"_");
     const secPages=[...new Set(DATA[sec].map(r=>r.page))].sort((a,b)=>a-b);
@@ -1379,14 +1395,20 @@ function render(){
     }
 
     const secLabel = sec === "5 PAGES ONLY" ? "📜 Standard Auction — 5 Pages" : "📚 Extended Auction — 5+ Pages";
-    html+=`<div class="scenario-block">
+    blocks.push(`<div class="scenario-block">
       <div class="scenario-header">
         <div class="scenario-gem"></div>
         <span class="scenario-title">${secLabel}</span>
         <div class="scenario-gem"></div>
       </div>
       ${secHtml}
-    </div>`;
+    </div>`);
+  }
+
+  if(blocks.length===2){
+    html=`<div class="auction-two-col">${blocks[0]}${blocks[1]}</div>`;
+  } else {
+    html=blocks.join("");
   }
   document.getElementById("root").innerHTML=html;
   if(typeof allResultsOpen !== 'undefined' && allResultsOpen) renderAllResults();
