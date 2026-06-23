@@ -344,10 +344,10 @@ body::after {
   background: linear-gradient(180deg, rgba(26,39,69,0.6) 0%, rgba(18,28,49,0.8) 100%);
   border: 1px solid var(--border-gold);
   border-radius: var(--r-xl);
-  overflow: hidden;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 32px rgba(0,0,0,0.35), 0 0 0 1px var(--border-dim) inset;
   position: relative;
+  z-index: 1;
   animation: fadeSlideUp 0.5s ease both;
   backdrop-filter: blur(4px);
 }
@@ -373,6 +373,7 @@ body::after {
   text-transform: uppercase;
   color: var(--gold-light);
   text-shadow: 0 0 12px rgba(233,201,128,0.3);
+  white-space: nowrap;
 }
 
 .scenario-gem {
@@ -818,6 +819,8 @@ tbody td select.item-sel option { background: #182541; }
 .all-results-wrap {
   margin-bottom: 1.5rem;
   animation: fadeSlideUp 0.5s 0.15s ease both;
+  position: relative;
+  z-index: 0;
 }
 
 .all-results-btn {
