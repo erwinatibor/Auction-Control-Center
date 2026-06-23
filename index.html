@@ -529,7 +529,6 @@ tbody td select.item-sel option { background: #182541; }
     0 0 0 1px rgba(255,255,255,0.04) inset,
     0 0 24px rgba(216,181,106,0.06);
   overflow: hidden;
-  backdrop-filter: blur(12px);
 }
 .sd-panel.open {
   display: flex;
@@ -1372,7 +1371,7 @@ function render(){
       const roman = ROMAN[pg] || pg;
       const rowsHtml=rows.map((r,idx)=>{
         const match=!gq||(r.bidder&&r.bidder.toLowerCase().includes(gq));
-        const rowStyle=gq&&r.bidder&&!match?"opacity:0.2":"";
+        const rowStyle=gq&&r.bidder&&!match?"display:none":"";
         const uid=`${secKey}_p${pg}_i${idx}`;
         const itemOpts=[1,2,3,4].map(n=>`<option value="${n}"${r.item===n?" selected":""}>${n}</option>`).join("");
         return`<tr style="${rowStyle}">
